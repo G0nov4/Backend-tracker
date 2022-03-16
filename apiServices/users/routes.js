@@ -9,14 +9,14 @@ const router = express.Router();
 // Rutas - Routes
 
 // registro - register
-router.postAsync('/register', middlewares.user.isEmailValidate,controller.register);
+router.postAsync('/register',middlewares.user.isUserInDB, middlewares.user.isEmailValidate,controller.register);
 
 // ingreso - login
-router.postAsync('/login', middlewares.user.isEmailValidate, controller.login);
+router.postAsync('/login', middlewares.user.isUserInDB,middlewares.user.isEmailValidate, controller.login);
 
 // Funciones de usuario
 router.getAsync('/', controller.getUser);
-router.postAsync('/',middlewares.user.isUserInDB, controller.createUser)
+router.postAsync('/', controller.createUser)
 
 
 // Exportamos rutas que estan dentro de router - export routes is taht in router

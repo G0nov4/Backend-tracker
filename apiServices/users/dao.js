@@ -16,7 +16,6 @@ module.exports = {
         })
     },
     async createUser({username, email, password}){
-        console.log(username,email,password)
             return prisma.user.create({
                 data: {
                     username,
