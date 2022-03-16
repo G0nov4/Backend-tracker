@@ -1,0 +1,18 @@
+{
+  "name": "backend",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "@awaitjs/express": "^0.9.0",
+    "@prisma/client": "^3.10.0",
+    "config": "^3.3.7",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "morgan": "~1.9.1",
+    "prisma": "^3.10.0"
+  }
+}

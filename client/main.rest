@@ -1,0 +1,12 @@
+
+
+GET http://localhost:3000/v1/users
+
+###
+POST  http://localhost:3000/v1/users
+
+{
+    "username": "g0nova",
+    "email": "garynova@gmail.com",
+    "password": "contraseña"
+}

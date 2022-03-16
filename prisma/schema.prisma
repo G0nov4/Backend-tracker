@@ -1,0 +1,27 @@
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["mongodb", "referentialActions"]
+}
+
+
+model User {
+  id Bytes @id @default(auto()) @map("_id") @db.ObjectId
+  created_at DateTime       @default(now())
+  updated_at DateTime       @updatedAt
+  username   String         @unique
+  email      String         @unique
+  password   String 
+  type       Rol            @default(USER)
+}
+
+enum Rol{
+  USER
+  ADMIN
+  CLUB
+}
