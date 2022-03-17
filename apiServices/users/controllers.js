@@ -13,10 +13,8 @@ module.exports = {
             username: req.body.username,
             password: req.body.password,
             email: req.body.email,
-        });
-        console.log("--",NewUser)    
-        
-        return res.send(NewUser)
+        });        
+        return res.send(NewUser);
     },
     async login(req,res){
 

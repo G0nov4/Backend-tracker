@@ -10,11 +10,13 @@ const middlewares = {
         },
       })
       .then((data) => {
-          console.log("----",data)
         if(data == null){
             next();
         }else{
-            return res.sendStatus(400);
+            return res.status(400).json({
+                error: true,
+                msg: "El email ya se encuentra registrado."
+            });
         }
       })
   },

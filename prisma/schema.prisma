@@ -18,8 +18,128 @@ model User {
   email      String         @unique
   password   String 
   type       Rol            @default(USER)
+  ciclist Ciclist?
+  club Club?
+  comment comments[]
 }
 
+
+model Ciclist {
+  id Bytes @id @default(auto()) @map("_id") @db.ObjectId
+  id_user Bytes?
+  id_club Bytes?
+  first_name String
+  last_name String
+  Departament String
+  total_distance Int
+  total_time Int
+  photo String
+  user User? @relation(fields: [id_user], references: [id])
+  club Club? @relation(fields: [id_club], references: [id])
+  rutas Rutas[]
+  pagos Payments[] 
+}
+
+
+model Club {
+  id Bytes @id @default(auto()) @map("_id") @db.ObjectId
+  id_user Bytes
+  name String
+  description String
+  logo String
+  background String
+  lider String
+  user User @relation(fields: [id_user], references: [id])
+  ciclist Ciclist[]
+  rutas Rutas[]
+  events Events[]
+}
+
+model Rutas{
+  id Bytes @id @default(auto()) @map("_id") @db.ObjectId
+  id_club Bytes?
+  id_ciclist Bytes?
+  id_attractions Bytes?
+  id_event Bytes
+  name String
+  archiveGPX String
+  waypoint String
+  distance Float
+  Time DateTime?
+  description String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  calificacion String?
+  club Club? @relation(fields: [id_club], references: [id])
+  ciclist Ciclist? @relation(fields: [id_ciclist], references: [id])
+  attractions TouristAttractions[]
+  event Events?
+  comments comments[]
+  galery galery[]
+}
+
+model TouristAttractions {
+  id Bytes @id @default(auto()) @map("_id") @db.ObjectId
+  id_ruta Bytes
+  name String
+  type String
+  description String
+  ruta Rutas @relation(fields: [id_ruta], references: [id])
+}
+
+model Events{
+  id Bytes @id @default(auto()) @map("_id") @db.ObjectId
+  id_club Bytes
+  id_ruta Bytes
+  name String
+  photo String
+  limit Int
+  type String
+  validateEvent Boolean
+  description String
+  date DateTime
+  club Club? @relation(fields: [id_club], references: [id])
+  ruta Rutas? @relation(fields: [id_ruta], references: [id])
+  pagos Payments[]
+  comment comments[]
+  galery galery[]
+}
+
+model Payments{
+  id Bytes @id @default(auto()) @map("_id") @db.ObjectId
+  id_event Bytes
+  id_ciclist Bytes
+  name String
+  age Int
+  number String
+  validatePayment Boolean
+  created_at DateTime @default(now())
+  date DateTime
+  event Events @relation(fields: [id_event], references: [id])
+  ciclist Ciclist? @relation(fields: [id_ciclist], references: [id])
+}
+
+model comments{
+  id Bytes @id @default(auto()) @map("_id") @db.ObjectId
+  id_user Bytes?
+  id_ruta Bytes?
+  id_event Bytes?
+  commentText String
+  created_at DateTime @default(now())
+  user User? @relation(fields: [id_user], references: [id])
+  ruta Rutas? @relation(fields: [id_ruta], references: [id])
+  event Events? @relation(fields: [id_event], references: [id])
+}
+
+model galery{
+  id Bytes @id @default(auto()) @map("_id") @db.ObjectId
+  id_ruta Bytes?
+  id_event Bytes?
+  filename String
+  created_at DateTime @default(now())
+  ruta Rutas? @relation(fields: [id_ruta], references: [id])
+  event Events? @relation(fields: [id_event], references: [id])
+}
 enum Rol{
   USER
   ADMIN
